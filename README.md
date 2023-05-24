@@ -8,8 +8,7 @@ By analyzing extensive data spanning over a decade, from 2010 to 2023, this stat
 ----------------------------------------------------------------------------------------------------------------------
 ## Key Features:
 
-### Comprehensive Dataset: 
-Access an extensive and preprocessed dataset, covering millions of bike-sharing trips, collected over 13 years, to train and evaluate your own models.
+Comprehensive Dataset: Access an extensive and preprocessed dataset, covering millions of bike-sharing trips, collected over 13 years, to train and evaluate your own models.
 
 Robust Machine Learning Model: Take advantage of our powerful machine learning model, carefully developed and fine-tuned to accurately predict bike-share ridership based on historical data. Save time and resources by building upon our well-established foundation.
 
