@@ -18,6 +18,31 @@ Evaluation Metrics: Evaluate the performance of your own models with a set of co
 
 Documentation and Best Practices: Benefit from comprehensive documentation, offering insights into data preprocessing techniques, feature engineering strategies, model selection considerations, and practical tips for improving model performance. Stay updated with the latest best practices in the field.
 
-Contribution and Collaboration: Join a vibrant community of machine learning enthusiasts, data scientists, and bike-share enthusiasts. Contribute your own improvements, share your insights, and collaborate with like-minded individuals to push the boundaries of bike-share ridership prediction.
-
 Unlock the potential of data-driven decision-making and optimize the operations of your bike-sharing service with BikeShare Rider Predictor. Access the repository now and embark on a journey towards accurate and insightful ridership forecasts. Let the power of machine learning revolutionize the way you understand and optimize urban mobility.
+
+----------------------------------------------------------------------------------------------------------------------
+## Data Description:
+
+Data Source: I collected Capital Bikeshare trip data from its official website. 
+URL: <https://s3.amazonaws.com/capitalbikeshare-data/index.html>
+
+Data Description: Based on the information provided by the website, the Capital Bikeshare publish downloadable files of Capital Bikeshare trip data. The data includes:
+
+- Duration – Duration of trip
+- Start Date – Includes start date and time
+- End Date – Includes end date and time
+- Start Station – Includes starting station name and number
+- End Station – Includes ending station name and number
+- Bike Number – Includes ID number of bike used for the trip
+- Member Type – Indicates whether user was a "registered" member (Annual Member, 30-Day Member or Day Key Member) or a "casual" rider (Single Trip, 24-Hour Pass, 3-Day Pass or 5-Day Pass)
+Note that data is preprocessed to remove any trips that are taken by staff as they service and inspect the system, trips that are taken to/from any of our “test” stations at our warehouses and any trips lasting less than 60 seconds (potentially false starts or users trying to re-dock a bike to ensure it's secure).
+
+Data Preprocessing: In order to better prepare the data, I took the followings data manipulations such as handling missing values, removing outliers, encoding categorical variables, and dropping unnecessary column such as 'Bike Number' to prepare the data for model training.
+
+Feature Engineering: On top of the data preprocessing, I added extra columns into the dataframe that are: 'time_of_day', 'day_of_week', 'month', 'year' to capture the seasonality and trend of bike ride in terms of time of day, day of week, and monthly in 13years span. 
+
+Data Split: Clarify how the data was split into training and testing sets. Specify the ratio or methodology used for partitioning the data to ensure unbiased evaluation and accurate performance assessment of the machine learning model.
+
+Data Exploration and Visualization: Highlight any data exploration and visualization techniques employed to gain insights into the data distribution, correlations between variables, or trends over time. This could include interactive plots, charts, or statistical summaries to provide a comprehensive understanding of the data.
+
+Data Limitations: Discuss any limitations or considerations associated with the data. This may include data quality issues, potential biases, missing information, or any other factors that could impact the model's performance or interpretation of results.
