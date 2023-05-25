@@ -6,6 +6,20 @@ Welcome to BikeShare Rider Predictor, an innovative machine learning project tha
 By analyzing extensive data spanning over a decade, from 2010 to 2023, this state-of-the-art machine learning model has been trained to capture the intricate patterns and factors that influence bike-share ridership. Through careful feature engineering and advanced predictive algorithms, the model offers a reliable and efficient solution for predicting future ridership on a daily, weekly, and even monthly basis.
 
 ----------------------------------------------------------------------------------------------------------------------
+## What is Capital Bike Share Service?
+Capital Bike Share is a bike-sharing service that operates in the Washington, D.C. metropolitan area, including Washington, D.C., Arlington, Virginia, and Alexandria, Virginia. It provides a convenient and sustainable transportation option for residents and visitors, allowing them to rent bicycles for short trips.
+
+The service offers a network of bike stations strategically located throughout the region, allowing users to easily pick up and drop off bikes at their desired locations. Riders can access bikes through a membership or by purchasing a short-term pass, making it accessible to both frequent and occasional users.
+
+Capital Bike Share promotes active transportation, reducing reliance on cars and contributing to improved air quality and reduced traffic congestion. It offers a flexible and eco-friendly way to navigate the city, whether for commuting, leisurely rides, or running errands.
+
+With a growing number of users, the service generates a wealth of data related to bike trips, including duration, start and end stations, member type, and timestamps. This data can be leveraged to gain insights into rider behavior, preferences, and patterns.
+
+By analyzing and modeling this data using machine learning and predictive algorithms, it becomes possible to make accurate predictions about total trip counts, understand factors influencing bike usage, and optimize the availability and distribution of bikes across the network.
+
+Capital Bike Share has become an integral part of the transportation ecosystem in the Washington, D.C. area, providing an accessible, sustainable, and efficient means of travel for individuals and contributing to a greener and more connected community. Currently, the service reports that it has over 30,000 active members and serves 3million+ of riders annually.
+
+----------------------------------------------------------------------------------------------------------------------
 ## Key Features:
 
 Comprehensive Dataset: Access an extensive and preprocessed dataset, covering millions of bike-sharing trips, collected over 13 years, to train and evaluate your own models.
@@ -45,7 +59,9 @@ Data Split: Clarify how the data was split into training and testing sets. Speci
 
 Data Exploration and Visualization: Highlight any data exploration and visualization techniques employed to gain insights into the data distribution, correlations between variables, or trends over time. This could include interactive plots, charts, or statistical summaries to provide a comprehensive understanding of the data.
 
-Data Limitations: Discuss any limitations or considerations associated with the data. This may include data quality issues, potential biases, missing information, or any other factors that could impact the model's performance or interpretation of results.
+Data Limitations: In terms of the data limitation, the Capital Bikeshare service has a huge missing data from March 2020 until December 2020. This will affect the monthly basis analysis because the dataset is missing a year worth trip data from March to December in 2020, while January and February has data.  
+In order to handle this issue, I took the method of both Time-based Subsetting and Ensemble Models. Time-based Subsetting excludes the period with missing data from the training and evaluation of the deep learning model. By focusing solely on the available data from previous years and omitting the COVID-affected period, the model can be trained and tested on a more consistent and reliable dataset.
+On the other hand, Ensemble Models combine multiple models to make predictions. By training separate models on different subsets of the data (e.g., one model with pre-pandemic data only, another model with post-pandemic data), you can leverage the strengths of each model while mitigating the impact of missing data in a specific period.
 
 ----------------------------------------------------------------------------------------------------------------------
 ## Deep Learning Model:
@@ -71,3 +87,15 @@ Here's an approach using LSTM for predicting the total trip count:
 4. Evaluate the LSTM Model:
   - Make predictions on the test set.
   - Calculate evaluation metrics such as mean squared error (MSE) or root mean squared error (RMSE) to assess the model's performance.
+
+----------------------------------------------------------------------------------------------------------------------
+## Choice of LSTM Model:
+For the prediction of the total trip count in the Capital Bike Share bike sharing service dataset, LSTM (Long Short-Term Memory) networks are chosen because it is commonly used in sequence modeling task such as time series analysis, where there are long-term dependencies or patterns in the data. LSTM networks are a type of recurrent neural network (RNN) that can effectively capture and model such long-term dependencies.
+
+In the context of predicting the total trip count in the Capital Bike Share bike sharing service dataset, LSTM was suggested as a deep learning model option because of the following reasons:
+
+Sequential Nature of Data: The bike sharing service dataset exhibits temporal patterns and dependencies. The total trip count can vary based on factors such as the time of day, day of the week, and month. LSTM networks are designed to capture such sequential dependencies in the data, making them suitable for modeling time series or sequential data.
+
+Memory Cell Architecture: LSTM networks incorporate memory cells that can retain information over long periods, allowing them to capture long-term dependencies in the data. This is particularly beneficial when predicting time series data, where past observations may have a significant influence on future outcomes.
+
+Feature Extraction: LSTM networks can automatically learn and extract relevant features from the input data, reducing the need for explicit feature engineering. This is especially useful when dealing with complex relationships and patterns in the data, as the network can discover important features on its own.
