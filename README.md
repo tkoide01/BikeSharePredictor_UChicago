@@ -46,3 +46,28 @@ Data Split: Clarify how the data was split into training and testing sets. Speci
 Data Exploration and Visualization: Highlight any data exploration and visualization techniques employed to gain insights into the data distribution, correlations between variables, or trends over time. This could include interactive plots, charts, or statistical summaries to provide a comprehensive understanding of the data.
 
 Data Limitations: Discuss any limitations or considerations associated with the data. This may include data quality issues, potential biases, missing information, or any other factors that could impact the model's performance or interpretation of results.
+
+----------------------------------------------------------------------------------------------------------------------
+## Deep Learning Model:
+For the prediction of the total trip count in the Capital Bike Share bike sharing service dataset, I considered using followings deep learning models with LSTM and took the folowings steps:
+Here's an approach using LSTM for predicting the total trip count:
+
+1. Preprocess the Data:
+  - Convert categorical variables (such as 'Start station', 'End station', and 'Member type') into numerical representations using techniques like one-hot encoding or label encoding.
+  - Split the dataset into training and test sets.
+
+2. Build the LSTM Model:
+  - Design an LSTM model architecture using frameworks like TensorFlow or Keras.
+  - Define the input shape based on the number of features and the sequence length.
+  - Add LSTM layers with an appropriate number of units.
+  - Add other layers like Dense layers or dropout layers for regularization.
+  - Compile the model with an appropriate loss function and optimizer.
+
+3. Train the LSTM Model:
+  - Fit the model on the training data.
+  - Specify the batch size and the number of epochs for training.
+  - Monitor the training progress and adjust the hyperparameters as needed.
+
+4. Evaluate the LSTM Model:
+  - Make predictions on the test set.
+  - Calculate evaluation metrics such as mean squared error (MSE) or root mean squared error (RMSE) to assess the model's performance.
