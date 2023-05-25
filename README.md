@@ -110,3 +110,108 @@ Robustness to outliers: Random Forest Regressor is less sensitive to outliers co
 Interpretability: Random Forest Regressor provides feature importance measures, which can offer insights into the relative importance of different features in predicting the total trip count.
 
 Improved predictive performance: Ensemble models have the potential to provide more accurate predictions by leveraging the strengths of multiple models, leading to improved overall performance and generalization ability.
+
+----------------------------------------------------------------------------------------------------------------------
+## Running the Ensemble Models:
+```
+# Import necessary libraries for running LSTM model and RF model
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MaxAbsScaler, OneHotEncoder
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.compose import ColumnTransformer
+```
+```
+# Assign independent and dependent variables based on 
+X_pre_pandemic = pre_pandemic_data[['Start station number','End station number', 'Member type','day_of_week', 'month', 'year']]
+y_pre_pandemic = pre_pandemic_data['Total trip count']
+X_post_pandemic = post_pandemic_data[['Start station number','End station number','Member type','day_of_week', 'month', 'year']]
+y_post_pandemic = post_pandemic_data['Total trip count']
+
+# Define the column transformer for one-hot encoding
+categorical_cols = ['Member type', 'day_of_week', 'month']
+preprocessor = ColumnTransformer(
+    transformers=[('encoder', OneHotEncoder(), categorical_cols)],
+    remainder='passthrough'
+)
+
+# Apply the column transformer to encode the categorical columns for pre-pandemic data
+X_pre_pandemic_encoded = preprocessor.fit_transform(X_pre_pandemic)
+# Convert the encoded data to a dense matrix
+X_pre_pandemic_encoded = X_pre_pandemic_encoded.toarray()
+
+# Scale the features for pre-pandemic data
+scaler = MaxAbsScaler()
+X_pre_pandemic_scaled = scaler.fit_transform(X_pre_pandemic_encoded)
+
+# Define hyperparameters
+lstm_params = [
+    {'units': 50, 'epochs': 50, 'batch_size': 32},
+    {'units': 100, 'epochs': 100, 'batch_size': 64},
+    {'units': 200, 'epochs': 100, 'batch_size': 128}
+]
+
+rf_params = [
+    {'n_estimators': 100},
+    {'n_estimators': 200},
+    {'n_estimators': 300}
+]
+```
+```
+# Perform model training and evaluation for each set of hyperparameters
+results = []
+
+for lstm_param in lstm_params:
+    for rf_param in rf_params:
+        # LSTM Model
+        # Split the pre-pandemic data into train and test sets
+        # Split the pre-pandemic data into train and test sets
+        X_train, X_test, y_train, y_test = train_test_split(X_pre_pandemic_scaled, y_pre_pandemic, test_size=0.2, random_state=42)
+        
+        # Normalize the data
+        scaler = MaxAbsScaler()
+        X_train_scaled = scaler.fit_transform(X_train)
+        X_test_scaled = scaler.transform(X_test)
+
+        # Reshape the input data for LSTM
+        X_train_reshaped = X_train_scaled.reshape((X_train_scaled.shape[0], 1, X_train_scaled.shape[1]))
+        X_test_reshaped = X_test_scaled.reshape((X_test_scaled.shape[0], 1, X_test_scaled.shape[1]))
+
+        # Build the LSTM model
+        model = Sequential()
+        model.add(LSTM(lstm_param['units'], activation='relu', input_shape=(1, X_train_scaled.shape[1])))
+        model.add(Dense(1))
+        model.compile(optimizer='adam', loss='mse')
+
+        # Train the LSTM model
+        model.fit(X_train_reshaped, y_train, epochs=lstm_param['epochs'], batch_size=lstm_param['batch_size'], verbose=0)
+
+        # Evaluate the LSTM model
+        y_pred_lstm = model.predict(X_test_reshaped)
+        mse_lstm = mean_squared_error(y_test, y_pred_lstm)
+
+        # Ensemble Model
+        # Train a Random Forest regressor on the post-pandemic data
+        model_rf = RandomForestRegressor(**rf_param, random_state=42)
+        model_rf.fit(X_post_pandemic, y_post_pandemic)
+
+        # Predict using the Random Forest regressor
+        y_pred_rf = model_rf.predict(X_test)
+        mse_rf = mean_squared_error(y_test, y_pred_rf)
+
+        # Combine the predictions using simple averaging
+        y_pred_ensemble = (y_pred_lstm + y_pred_rf) / 2
+        mse_ensemble = mean_squared_error(y_test, y_pred_ensemble)
+
+        # Store the results
+        result = {
+            'LSTM Parameters': lstm_param,
+            'Random Forest Parameters': rf_param,
+            'LSTM MSE': mse_lstm,
+            'Random Forest MSE': mse_rf,
+            'Ensemble MSE': mse_ensemble
+        }
+        results.append(result)
+```
