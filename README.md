@@ -98,4 +98,15 @@ Sequential Nature of Data: The bike sharing service dataset exhibits temporal pa
 
 Memory Cell Architecture: LSTM networks incorporate memory cells that can retain information over long periods, allowing them to capture long-term dependencies in the data. This is particularly beneficial when predicting time series data, where past observations may have a significant influence on future outcomes.
 
-Feature Extraction: LSTM networks can automatically learn and extract relevant features from the input data, reducing the need for explicit feature engineering. This is especially useful when dealing with complex relationships and patterns in the data, as the network can discover important features on its own.
+----------------------------------------------------------------------------------------------------------------------
+## Choice of Random Forest Regressor Model:
+Random Forest Regressor is chosen as part of the Ensemble model with LSTM because:
+Complementary strengths: LSTM is a powerful deep learning model that can capture sequential patterns in the data, while Random Forest Regressor is a versatile and robust ensemble model that can handle non-linear relationships and capture complex interactions between features.
+
+Diversification: LSTM and Random Forest Regressor are fundamentally different models, so combining them in an ensemble allows for diversification and reduces the risk of relying on a single model's performance.
+
+Robustness to outliers: Random Forest Regressor is less sensitive to outliers compared to LSTM, making it a valuable addition to the ensemble when dealing with noisy or outlier-prone data.
+
+Interpretability: Random Forest Regressor provides feature importance measures, which can offer insights into the relative importance of different features in predicting the total trip count.
+
+Improved predictive performance: Ensemble models have the potential to provide more accurate predictions by leveraging the strengths of multiple models, leading to improved overall performance and generalization ability.
