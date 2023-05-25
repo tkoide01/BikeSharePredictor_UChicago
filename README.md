@@ -40,7 +40,7 @@ Unlock the potential of data-driven decision-making and optimize the operations 
 Data Source: I collected Capital Bikeshare trip data from its official website. 
 URL: <https://s3.amazonaws.com/capitalbikeshare-data/index.html>
 
-Data Description: Based on the information provided by the website, the Capital Bikeshare publish downloadable files of Capital Bikeshare trip data. The data includes:
+Data Description: Based on the information provided by the website, the Capital Bikeshare publish downloadable files of Capital Bikeshare trip data. Total of 34,500,331 data includes:
 
 - Duration – Duration of trip
 - Start Date – Includes start date and time
